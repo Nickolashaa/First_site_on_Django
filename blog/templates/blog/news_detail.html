@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+
+{% block main %}
+<h1> Статья №{{ object.id }} </h1>
+<div class="news_container">
+    <div class="all_news">
+        <div class="new">
+            <div class="new_name">
+                {{ object.name }}
+            </div>
+            <div class="new_text">
+                {{ object.text }}
+            </div>
+            <div class="new_author">
+                <div class="d-flex">
+                    <img 
+                    src=" {{ object.author.profile.image.url }} "
+                    alt="Аватарка автора"
+                    width="64"
+                    height="64">
+                    <div class="new_author_name">@{{ object.author.username }}</div>
+                </div>
+                <div>{{ object.time|date:"d E Y в H:i" }}</div>
+            </div>
+            {% if user == object.author %}
+            <a href= {% url "update" object.id%} class="btn btn-outline-warning mt-3">Редактировать</a>
+            <a href= {% url "delete" object.id%} class="btn btn-outline-danger mt-3">Удалить</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock main %}

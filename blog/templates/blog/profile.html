@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+	{{ title }}
+{% endblock title %}
+
+{% block main %}
+<div class="d-flex mt-5 justify-content-center border">
+	<div class="d-flex text-body-secondary pt-3">
+		<img 
+		class="bd-placeholder-img me-2 mb-2 rounded" 
+		width="64" height="64" 
+		alt=":("
+		src="{{ user.profile.image.url }}">
+		<p class="pb-3 mb-0 small lh-sm border-bottom">
+		  <strong class="d-block text-gray-dark">@{{ user.username }}</strong>
+		  {% if user.email %} email: {{ user.email }} {% endif %}
+		</p>
+	</div>
+</div>
+<div class="form_block">
+    <form method="POST" class="profile_form mt-3" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ update_form.as_p }}
+        {{ update_image.as_p }}
+        <button class="form_btn" type="submit">Сохранить</button>
+    </form>
+</div>
+{% endblock main %}

@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block title %}
+<h1>authentication</h1>
+{% endblock title %}
+
+{% block main %}
+<h1>Страница авторизации</h1>
+<div class="block_form">
+    <form method="POST" class="auth_form">
+        {% csrf_token %}
+        {{ form }}
+        <button class="form_btn" type="submit">Войти</button>
+        <a href="{% url "pass-reset" %}">Восстановить пароль</a>
+    </form>
+</div>
+{% endblock main %}

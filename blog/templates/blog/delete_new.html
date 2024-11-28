@@ -1,0 +1,11 @@
+{% extends "blog/base.html" %}
+
+{% block main %}
+<h1>Вы уверены, что хотите удалить статью "{{ object.name }}"</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-danger" type="submit">Удалить</button>
+        <a href= {% url "home" %} class="btn btn-outline-danger">Отмена</a>
+    </form>
+{% endblock main %}

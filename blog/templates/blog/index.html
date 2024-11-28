@@ -1,0 +1,50 @@
+{% extends "blog/base.html" %}
+
+{% block main %}
+<h1> {{ title }} </h1>
+<div class="news_container">
+    <div class="all_news">
+        {% for new in news %}
+            <div class="new">
+                <div class="new_name">
+                    {{ new.name }}
+                </div>
+                <div class="new_text">
+                    {{ new.text }}
+                </div>
+                <div class="new_author">
+                    <div class="d-flex">
+                        <img 
+                        src=" {{ new.author.profile.image.url }} "
+                        alt="Аватарка автора"
+                        width="64"
+                        height="64">
+                        <div class="new_author_name">@{{ new.author.username }}</div>
+                    </div>
+                    <div>{{ new.time|date:"d E Y в H:i" }}</div>
+                </div>
+                <a href= {% url "news_id" new.id%} class="btn btn-outline-warning mt-3">Читать далее</a>
+            </div>
+    </div>
+</div>
+{% endfor %}
+<div class="pagination">
+    {% if is_paginated %}
+    <a href="/" class="btn btn-outline-warning">Начало</a>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-warning">Back</a>
+        {% endif %}
+        {% for num in page_obj.paginator.page_range %}
+            {% if num == page_obj.number %}
+                <button class="btn btn-warning">{{ num }}</button>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+                    <a class="btn btn-outline-warning" href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-warning">Next</a>
+        {% endif %}
+    <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-warning">Конец</a>
+    {% endif %}
+</div>
+{% endblock main %}
